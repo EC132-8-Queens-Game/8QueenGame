@@ -1,22 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <time.h>
-#include <ctype.h>
-#include <iomanip> 
-#include <iostream>
-
-
+#include <conio.h>
 void menu();
+void btn();
+void print();
+
 void main()
 {
 	menu();
 }
 
 
+
 //SOLN_ CODE
 
-int n, R[51];
+int n = 8, R[51];
 
 int check(int x, int y)
 {
@@ -36,18 +35,9 @@ int check(int x, int y)
 		return y;
 };
 
-int soln()
+int solve()
 {
-	int i, f;
-
-	printf("\033[0;34m");
-
-	printf("enter size of the board:");
-
-	printf("\033[0m");
-
-	scanf_s("%d", &n);
-	printf("\t press enter for more soln_..");
+	int i, f, m, o;
 
 	printf("\n");
 	for (i = 1; i <= n; i++)
@@ -68,17 +58,7 @@ int soln()
 			}
 		}
 
-		for (i = 1; i <= n; i++)
-		{
-			for (f = 1; f <= n; f++)
-			{
-				if (f == R[i])
-					printf(" Q ");
-				else
-					printf(" - ");
-			}
-			printf("\n");
-		}
+		print();
 		printf("\n");
 		for (i = 1; i < n; i++)
 			printf("%d,", R[i]);
@@ -87,11 +67,8 @@ int soln()
 		system("cls");
 
 		printf("\033[0;35m");
-
-		printf("solution for (%d) Queen\t\nfor more press enter..\n\n", n);
-
+		printf("solution for (%d) Queen\t\nPRESS ANY KEY FOR MORE SOLUTIONS ..\n\n", n);
 		printf("\033[0m");
-
 
 		R[n] = R[n] + 1;
 		i = n;
@@ -102,10 +79,11 @@ int soln()
 
 int hour = 0, minute = 0, second = 0, flag = 0;
 
-void delay(int z)  //delay function
+void delay(int z)
 {
-	clock_t timeDelay = z + clock();    //Step up the difference from clock delay
-	while (timeDelay > clock());         //stop when the clock is higher than time delay
+	clock_t timeDelay = z + clock();
+	while (timeDelay > clock());
+
 }
 
 int printTimeOnscreen() {
@@ -142,17 +120,17 @@ int selection() {
 }
 
 int counter() {
-	while (!_kbhit() && flag == 0) {     //keep looping while the user didn't hit any key and flag is 0
-		if (minute > 59) {            //after minute is greater than 59, reset minute and increase 1 hour
+	while (!_kbhit() && flag == 0) {
+		if (minute > 59) {
 			minute = 0; ++hour;
 		}
-		if (second > 59) {         //after second is greater than 59, reset second and increase 1 minute
+		if (second > 59) {
 			second = 0; ++minute;
 		}
-		printTimeOnscreen();           //print out the new data, delay for 1000 millisecond and increase 1 second.
+		printTimeOnscreen();
 		delay(1000); second += 1;
 	}
-	selection();    //after the user hit the keyboard, call the menu selection
+	selection();
 	return 0;
 }
 
@@ -162,6 +140,7 @@ int timer()
 		counter();
 	}
 }
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -174,9 +153,14 @@ void menu() {
 	printf("\tWELCOME TO THE PUZZLE GAME\n\n");
 
 	printf("\033[1;32m");
-
-
-	printf("\t----------------------------\n\t\tTHE 8 QUEENS\n\t----------------------------\n");
+	printf("\t----------------------------\n");
+	printf("\033[0m");
+	printf("\033[1;42m");
+	printf("\t        THE 8 QUEENS        \n");
+	printf("\033[0m");
+	printf("\033[1;32m");
+	printf("\t----------------------------\n");
+	printf("\033[0m");
 	printf("\n\n");
 
 	printf("\033[0m");
@@ -195,9 +179,14 @@ void menu() {
 	printf("\tEXIT :'(\t\t\t\t.4\n");
 	printf("\n\n\tPLEASE ENTER YOUR CHOICE: ");
 	printf("\n\n");
+
+	btn();
+
+}
+void btn() {
+	int y;
+	int x;
 	scanf_s("%d", &x);
-
-
 	if (x < 1 || x > 4)
 	{
 
@@ -224,6 +213,7 @@ void menu() {
 			printf("\n\n\tPLEASE ENTER YOUR CHOICE: ");
 			printf("\n\n");
 			scanf_s("%d", &x);
+
 		}
 	}
 
@@ -238,20 +228,24 @@ void menu() {
 
 	if (x == 3)
 	{
-		check(0, 0);
-		soln();
-
-		printf("\n\n\tOK NOW I WANT TO  : ");
-		scanf_s("%d", &x);
 		system("cls");
+		check(0, 0);
+		solve();
+
+		
 	}
 
 	if (x == 2)
 	{
-
-		printf("\n\nThe eight queens’problem is the problem of placing eight queens on an 8×8 chessboard\nsuch  that  none  of  them  attack  one  another  (no  two  are  in  the  same  row,  column,  or diagonal).");
-		printf("\n\n\tOK NOW I WANT TO  : ");
-		scanf_s("%d", &x);
+		system("cls");
+		printf("\033[0;36m");
+		printf("\n\nThe eight queensâ€™problem is the problem of placing eight queens on an 8Ã—8 chessboard\nsuch  that  none  of  them  attack  one  another  (no  two  are  in  the  same  row,  column,  or diagonal).");
+		printf("\033[0m");
+		printf("\n\n\tOK NOW CLICK 9 TO BACK TO THE MENU\n");
+		scanf_s("%d", &y);
+		if (y == 9) {
+			menu();
+		}
 		system("cls");
 	}
 
@@ -264,9 +258,26 @@ void menu() {
 		counter();
 		timer();
 		// TIMER CODE END
+	
 
-		printf("\n\n\tOK NOW I WANT TO  : ");
-		scanf_s("%d", &x);
-		system("cls");
+	}
+}
+
+
+
+// print function
+void print() {
+
+	int i, f;
+	for (i = 1; i <= n; i++)
+	{
+		for (f = 1; f <= n; f++)
+		{
+			if (f == R[i])
+				printf(" Q ");
+			else
+				printf(" - ");
+		}
+		printf("\n");
 	}
 }
