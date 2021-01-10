@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include<conio.h>
-#include<math.h>
+#include <conio.h>
+#include <math.h>
 #include <ctype.h>
+#include <time.h>
 
 //  Const.
 #define BOARD_SIZE 8
@@ -13,14 +14,76 @@
 #define R_NOT_SAFE 1
 #define COL_NOT_SAFE 2
 
+
+int hour = 0, minute = 0, second = 0, flag = 0;
+
+void delay(int z)
+{
+	clock_t timeDelay = z + clock();
+	while (timeDelay > clock());
+}
+
+int printTimeOnscreen() {
+	system("cls");
+	printf("\t     1.Start  2.Stop  3.Reset    \n");
+	printf("\033[46m");
+	printf("\t              %d:%d:%d              \n", hour, minute, second);
+	printf("\033[0m");
+	printf("\033[0;45m");
+	printf("\t     Time allowed: One Minute    \n");
+	printf("\033[0m");
+	return 0;
+}
+
+int selection() {
+	switch (_getch()) {
+	case 1: flag = 0; break;
+	case 2: flag = 1; break;
+	case 3:
+		hour = minute = second = 0; flag = 1;
+		printTimeOnscreen();
+		break;
+	}
+	return 0;
+}
+
+int counter() {
+	while (!_kbhit() && flag == 0) {
+		if (minute > 59) {
+			minute = 0; ++hour;
+		}
+		if (second > 59) {
+			second = 0; ++minute;
+		}
+		printTimeOnscreen();
+		delay(1000); second += 1;
+	}
+	selection();
+	return 0;
+}
+
+int time()
+{
+	while (1) {
+		counter();
+	}
+}
+
+int timer() {
+	delay(0);
+	printTimeOnscreen();
+	selection();
+	counter();
+	timer();
+	return 0;
+}
+
 // G.V
 char queen_board[BOARD_SIZE][BOARD_SIZE];
 int Board_Size;
 
 
-// print function
 void Print();
-// play function
 void Play();
 
 int Check_Pos(int row, int col);
@@ -28,10 +91,10 @@ int Check_Pos(int row, int col);
 void Get_Pos(int* row, int* col, int queen_number);
 void game_menu();
 
-//Clear fn.
+//Clear function
 void ClearBoard();
 
-//Solve fn.
+//Solve function
 void Solve();
 int Get_Board_Size();
 
@@ -81,7 +144,6 @@ int soln()
 		}
 		printf("\033[1;35m");
 		printf("solution for (%d) Queen\nfor more press any key\n", n);
-		scanf_s("%d", &m);
 		printf("\033[0m");
 		for (i = 1; i <= n; i++)
 		{
@@ -94,6 +156,7 @@ int soln()
 			}
 			printf("\n");
 		}
+
 		for (i = 1; i < n; i++)
 			printf("%d,", R[i]);
 		printf("%d", R[n]);
@@ -105,12 +168,10 @@ int soln()
 	}
 }
 
-
 //The main function
 int main()
 {	
 	int n = 0;
-	int menu2 = 0;
 	int btn = 0;
 	while (btn != 3)
 	{
@@ -135,10 +196,10 @@ int main()
 		printf("\tKNOW THE RULE OF THE QUEENS PUZZLE\t.2\n");
 		printf("\n\n");
 		printf("\n\n");
-		printf("\tSEE THE SOLUTION\t\t\t.4\n");
+		printf("\tSEE THE SOLUTION\t\t\t.3\n");
 		printf("\n\n");
 		printf("\n\n");
-		printf("\tEXIT :'(\t\t\t\t.3\n");
+		printf("\tEXIT :'(\t\t\t\t.4\n");
 		printf("\n\n\tPLEASE ENTER YOUR CHOICE: ");
 		printf("\n\n");
 		scanf_s("%d", &btn);
@@ -146,39 +207,7 @@ int main()
 		switch (btn)
 		{
 		case 1:
-			system("cls");
-			printf("\t----------------------------\n");
-			printf("\033[0m");
-			printf("\033[41m");
-			printf("\t        PLAY MODE           \n");
-			printf("\033[0m");
-			printf("\033[0m");
-			printf("\t----------------------------\n");
-			printf("\033[0m");
-
-			while (menu2 != 3)
-			{
-
-				printf("\tPLAY WITHOUT TIME: \t\t\t\t.1\n");
-				printf("\n\n");
-				printf("\n\n");
-
-				printf("\tBACK TO THE MENU C:\t\t\t\t.2\n");
-				printf("\n\n\tPLEASE ENTER YOUR CHOICE: ");
-				scanf_s("%d", &menu2);
-				if (menu2 == 1)
-				{
-					game_menu();
-				}
-				else if (menu2 == 3)
-				{
-					//Time();
-				}
-				else if (menu2 == 2)
-					puts("  ");
-				else
-					puts("ERROR NUMBER ENTER VALID NUMBER PLEASE");
-			}
+			game_menu();
 			break;
 		case 2:
 			system("cls");
@@ -207,14 +236,35 @@ int main()
 			break;
 
 		case 3:
+			int e;
 			system("cls");
+			printf("\n\n\tAre you sure that you want to see solution?\n");
 			printf("\033[4;91m");
-			printf("\press 1 to see solution\n");
+			printf("\tif you sure press 1\n");
 			printf("\033[0m");
+			printf("\tif you're not press 2 and back to mune\n");
+			scanf_s("%d", &e);
 
-			check(0, 0);
-			soln();
+			while (e < 1 || e > 2)
+			{
+				system("cls");
+				printf("\033[41m");
+				printf("\n\n\tWRONG CHOICE PLEASE CHOOSE AGAIN\n\n");
+				printf("\033[0m");
+				scanf_s("%d", &e);
+			}
+			if (e == 1)
+			{
+				check(0, 0);
+				soln();
+			}
 
+
+			if (e == 2)
+			{
+				system("cls");
+				BACK;
+			}
 			break;
 		case 4:
 			system("cls");
@@ -225,21 +275,19 @@ int main()
 			break;
 		default:
 			puts("Try again");
-		}			//END SWITCH
-	}				//end while
+		}
+	}
 	return 0;
 }
 
-
-// Print fn..
+// Print function
 void Print(int a,int b)
 {
 	int i, j;
-
-	printf("\n%d x %d Chessboard:", Board_Size, Board_Size);
-
+			printf("\033[44m");
+	printf("\n 8 x 8 Chessboard:");
+			printf("\033[0m");
 	printf("\n");
-
 	for (i = 0; i < Board_Size; i++)
 	{
 		for (j = 0; j < Board_Size; j++)
@@ -261,7 +309,6 @@ void Print(int a,int b)
 	{
 		printf(" ---");
 	}
-
 	printf("\n");
 }
 
@@ -300,7 +347,7 @@ int Check_Pos(int row, int col)
 	return POS_SAFE;
 }
 
-// Play fn.
+// Play function
 void Play()
 {
 	int row, col;
@@ -330,7 +377,7 @@ void Play()
 		}
 		else if (status == D_NOT_SAFE)
 		{
-			printf("\nDiagonal [%d][%d] is not safe !!!\n", row, col);
+			printf("\nDiagonal [%d]X[%d] is not safe !!!\n", row, col);
 		}
 
 	} while (number_of_queens < Board_Size);
@@ -341,14 +388,14 @@ void Get_Pos(int* row, int* col, int queen_number)
 	char row_c, col_c;
 	int status;
 
-
 	int is_pos_valid = 0;
 	do
 	{
-		printf("PRESS C TO CLEAR THE BOARD\n");
-		printf("\n");
-		printf("Enter the row of queen    %d : ", queen_number);
-
+				printf("\033[0;36m");
+		printf("PRESS C TO CLEAR THE BOARD");
+				printf("\033[0m");
+		printf("\n\n");
+		printf("Enter the row of queen    %d: ", queen_number);
 
 		row_c = getchar();
 
@@ -387,7 +434,7 @@ void Get_Pos(int* row, int* col, int queen_number)
 		}
 
 
-		printf("Enter the column of queen %d : ", queen_number);
+		printf("Enter the column of queen %d: ", queen_number);
 		scanf_s("%d", col);
 
 		if (((*row) >= 1 && (*row) <= Board_Size) && ((*col) >= 1 && (*col) <= Board_Size))
@@ -405,29 +452,64 @@ void Get_Pos(int* row, int* col, int queen_number)
 void game_menu()
 {
 	int status;
+	int menu2 = 0;
 
 	system("cls");
+	printf("\033[35m");
 	printf("\t----------------------------\n");
 	printf("\033[0m");
-	printf("\033[41m");
-	printf("\t        GAME MODE           \n");
+	printf("\033[45m");
+	printf("\t        PALY MODE           \n");
 	printf("\033[0m");
-	printf("\033[0m");
+	printf("\033[35m");
 	printf("\t----------------------------\n");
 	printf("\033[0m");
 
-	status = Get_Board_Size();
+	printf("\tPLAY WITHOUT TIME:\t\t\t.1\n");
+	printf("\n\n");
 
-	if (status == 0)
-	{
-		ClearBoard();
-		Play();
+	printf("\tPLAY WITHTIME:   \t\t\t.2\n");
+	printf("\n\n");
+
+	printf("\tBACK TO THE MENU \t\t\t.3\n");
+	printf("\n\n");
+	printf("\n\n\tPLEASE ENTER YOUR CHOICE: ");
+		scanf_s("%d", &menu2);
+		if (menu2 == 1)
+		{
+			status = Get_Board_Size();
+
+			if (status == 0)
+			{
+			ClearBoard();
+			Play();
+			}
+		}
+		else if (menu2 == 2)
+		{
+			// TIMER CODE 
+			ClearBoard();
+			//timer();
+			Play();
+			
+			
+		}
+		else if (menu2 == 3)
+			{
+				printf("\n\n\tOK NOW CLICK 1 TO BACK TO THE MENU\n");
+				scanf_s("%d", &n);
+				if (n == 1)
+					puts("  ");
+				else
+					puts("WRONG INPUT");
+
+			}
+		else
+				printf("\e[0;31m");
+			system("cls");
+			puts("ERROR NUMBER ENTER VALID.. Welcome in mune agine");
+				printf("\033[0m");
 	}
-	else if (status == BACK)
-	{
-		// bach to main menu
-	}
-}
 
 //This function is to clear the board
 void ClearBoard()
@@ -497,22 +579,14 @@ void Solve()
 
 }
 
-
 int Get_Board_Size()
 {
 	int size;
-
 	int k = 0;
-
-	printf("\tSTART THE GAME\t\t\t\t\t.1\n");
-	printf("\n\n");
-	printf("\n\n");
-	printf("\tBACK TO THE  PREV MENU C:\t\t\t.2\n");
-	printf("\n\n\tPLEASE ENTER YOUR CHOICE: ");
 
 	while (1)
 	{
-		scanf_s("%d", &k);
+		int k = 1;
 
 		if (k == 1)
 		{
