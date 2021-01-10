@@ -38,9 +38,79 @@ int Get_Board_Size();
 // This function is used to check if the diagonals are safe
 int Check_Diag(int row, int col);
 
+// check and get solution to show the final answer
+int n = 8, R[51];
+
+int check(int x, int y)
+{
+	int i;
+	for (i = 1; i < x; i++)
+	{
+		if ((R[i] == y) || (i - R[i] == x - y) || (i - x == y - R[i]))
+		{
+			y = y + 1;
+			i = 0;
+		}
+	}
+
+	if (y > n)
+		return 0;
+	else
+		return y;
+};
+
+int soln()
+{
+	int i, f, m, o;
+	for (i = 1; i <= n; i++)
+		R[i] = 1;
+	i = 1;
+	while (1)
+	{
+		for (; i <= n; i++)
+		{
+			f = check(i, R[i]);
+			if (f != 0)
+				R[i] = f;
+			else
+			{
+				R[i] = 1;
+				R[i - 1] = R[i - 1] + 1;
+				i = i - 2;
+			}
+		}
+		printf("\033[1;35m");
+		printf("solution for (%d) Queen\nfor more press any key\n", n);
+		scanf_s("%d", &m);
+		printf("\033[0m");
+		for (i = 1; i <= n; i++)
+		{
+			for (f = 1; f <= n; f++)
+			{
+				if (f == R[i])
+					printf(" Q ");
+				else
+					printf(" - ");
+			}
+			printf("\n");
+		}
+		for (i = 1; i < n; i++)
+			printf("%d,", R[i]);
+		printf("%d", R[n]);
+		_getch();
+		system("cls");
+		R[n] = R[n] + 1;
+		i = n;
+
+	}
+}
+
+
 //The main function
 int main()
-{
+{	
+	int n = 0;
+	int menu2 = 0;
 	int btn = 0;
 	while (btn != 3)
 	{
@@ -86,7 +156,6 @@ int main()
 			printf("\t----------------------------\n");
 			printf("\033[0m");
 
-			int menu2 = 0;
 			while (menu2 != 3)
 			{
 
@@ -124,7 +193,7 @@ int main()
 			printf("\033[0;36m");
 			printf("\n\nThe eight queens’problem is the problem of placing eight queens on an 8×8 chessboard\nsuch  that  none  of  them  attack  one  another  (no  two  are  in  the  same  row,  column,  or diagonal).\n");
 			printf("\033[0m");
-			int n = 0;
+			
 			while (n != 1)
 			{
 				printf("\n\n\tOK NOW CLICK 1 TO BACK TO THE MENU\n");
@@ -136,22 +205,23 @@ int main()
 
 			}
 			break;
+
 		case 3:
+			system("cls");
+			printf("\033[4;91m");
+			printf("\press 1 to see solution\n");
+			printf("\033[0m");
+
+			check(0, 0);
+			soln();
+
+			break;
+		case 4:
 			system("cls");
 			printf("\033[0;36m");
 			printf("\n");
 			printf("\tTHANK YOU FOR PLAYING OUR GAME \tGOOD BYE.. :D\n\n\n\n");
 			printf("\033[0m");
-			break;
-		case 4:
-			system("cls");
-			printf("\033[4;91m");
-			printf("\press 1 to see solution\n");
-			printf("\033[0m");
-			
-			check(0, 0);
-			soln();
-
 			break;
 		default:
 			puts("Try again");
@@ -162,10 +232,9 @@ int main()
 
 
 // Print fn..
-void Print()
+void Print(int a,int b)
 {
 	int i, j;
-
 
 	printf("\n%d x %d Chessboard:", Board_Size, Board_Size);
 
@@ -240,7 +309,7 @@ void Play()
 
 	do
 	{
-		Print();
+		Print(0,0);
 
 		Get_Pos(&row, &col, number_of_queens + 1);
 
@@ -424,7 +493,7 @@ void Solve()
 
 	}
 
-	Print();
+	Print(0,0);
 
 }
 
@@ -482,7 +551,7 @@ int Check_Diag(int row, int col)
 	{
 		if (queen_board[r][c] == QUEEN)
 		{
-			Print(r, c);  
+			Print(r, c);
 			return D_NOT_SAFE;
 		}
 
@@ -519,72 +588,4 @@ int Check_Diag(int row, int col)
 
 	// if function reaches here it means that diagonal is safe
 	return 0;
-}
-
-
-// check and get solution to show the final answer
-int n = 8, R[51];
-
-int check(int x, int y)
-{
-	int i;
-	for (i = 1; i < x; i++)
-	{
-		if ((R[i] == y) || (i - R[i] == x - y) || (i - x == y - R[i]))
-		{
-			y = y + 1;
-			i = 0;
-		}
-	}
-
-	if (y > n)
-		return 0;
-	else
-		return y;
-};
-
-int soln()
-{
-	int i, f, m, o;
-	for (i = 1; i <= n; i++)
-		R[i] = 1;
-	i = 1;
-	while (1)
-	{
-		for (; i <= n; i++)
-		{
-			f = check(i, R[i]);
-			if (f != 0)
-				R[i] = f;
-			else
-			{
-				R[i] = 1;
-				R[i - 1] = R[i - 1] + 1;
-				i = i - 2;
-			}
-		}
-		printf("\033[1;35m");
-		printf("solution for (%d) Queen\nfor more press any key\n", n);
-		scanf_s("%d", &m);
-		printf("\033[0m");
-			for (i = 1; i <= n; i++)
-			{
-				for (f = 1; f <= n; f++)
-				{
-					if (f == R[i])
-						printf(" Q ");
-					else
-						printf(" - ");
-				}
-				printf("\n");
-			}
-			for (i = 1; i < n; i++)
-				printf("%d,", R[i]);
-			printf("%d", R[n]);
-			_getch();
-			system("cls");
-			R[n] = R[n] + 1;
-			i = n;
-
-	}
 }
