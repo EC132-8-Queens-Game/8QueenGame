@@ -16,7 +16,7 @@
 
 
 int hour = 0, minute = 0, second = 0, flag = 0;
-
+// TIMER CODE
 void delay(int z)
 {
 	clock_t timeDelay = z + clock();
@@ -98,10 +98,10 @@ void ClearBoard();
 void Solve();
 int Get_Board_Size();
 
-// This function is used to check if the diagonals are safe
+//diagonals are safe
 int Check_Diag(int row, int col);
 
-// check and get solution to show the final answer
+//solution
 int n = 8, R[51];
 
 int check(int x, int y)
@@ -312,7 +312,7 @@ void Print(int a,int b)
 	printf("\n");
 }
 
-//This function is used to check the position of the queen
+// PUT QUEENS
 int Check_Pos(int row, int col)
 {
 	int i, j;
@@ -511,7 +511,6 @@ void game_menu()
 				printf("\033[0m");
 	}
 
-//This function is to clear the board
 void ClearBoard()
 {
 	int i, j;
