@@ -36,9 +36,10 @@ void time(int m, int s)
 			s = 60;
 			m--;
 		}
-		//system("cls");
+		system("cls");
 		cout << m << ":" << s--;
 		Sleep(1000);
+		
 	}
 }
 
@@ -236,16 +237,18 @@ int main()
 				system("cls");
 				BACK;
 			}
-			break;
+		break;
 		case 4:
 			system("cls");
-			printf("\033[0;36m");
+					printf("\033[0;36m");
 			printf("\n");
 			printf("\tTHANK YOU FOR PLAYING OUR GAME \tGOOD BYE.. :D\n\n\n\n");
-			printf("\033[0m");
+					printf("\033[0m");
 			break;
 		default:
-			puts("Try again");
+					printf("\033[0;41m");
+			puts("Try again!!!");
+					printf("\033[0m");
 		}
 	}
 	return 0;
@@ -419,7 +422,6 @@ void Get_Pos(int* row, int* col, int queen_number)
 			printf("\nNOT VALID INPUT. INPUT MUST BE <= %d , TRY ONE MORE TIME...\n", Board_Size);
 		}
 	} while (is_pos_valid != 1);
-
 }
 
 void game_menu()
