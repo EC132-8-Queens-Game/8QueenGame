@@ -26,7 +26,9 @@ void timer() {
 		Sleep(1000);
 		counter--;
 		Beep(1245, 1000);
+		
 	}
+	cout << endl;
 }
 
 
@@ -163,13 +165,14 @@ void main()
 			break;
 		case 2:
 			system("cls");
-			printf("\t----------------------\n");
-			printf("\033[0m");
-			printf("\033[41m");
+			printf("\033[44m");
+			printf("\n\n");
 			printf("\t        RULE          \n");
 			printf("\033[0m");
+			printf("\033[34m");
+			printf("\t**********************\n");
 			printf("\033[0m");
-			printf("\t----------------------\n");
+			
 
 			printf("\033[0;36m");
 			printf("\n\nThe eight queens’problem is the problem of placing eight queens on an 8×8 chessboard\nsuch  that  none  of  them  attack  one  another  (no  two  are  in  the  same  row,  column,  or diagonal).\n");
@@ -452,6 +455,7 @@ void game_menu()
 	else if (menu2 == 2)
 	{
 		//TIMER CODE
+		timer();
 		status = Get_Board_Size();
 
 		if (status == 0)
@@ -621,6 +625,5 @@ int Check_Diag(int row, int col)
 
 	} while (r >= 0 && c < Board_Size);
 
-	
 	return 0;
 }
