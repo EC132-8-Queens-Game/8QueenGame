@@ -36,7 +36,7 @@ void time(int m, int s)
 			s = 60;
 			m--;
 		}
-		system("cls");
+		//system("cls");
 		cout << m << ":" << s--;
 		Sleep(1000);
 		
@@ -369,7 +369,11 @@ void Get_Pos(int* row, int* col, int queen_number)
 		printf("PRESS C TO CLEAR THE BOARD");
 				printf("\033[0m");
 		printf("\n");
+		printf("\033[0;35m");
+		printf("Time Remaining: ");
 		timer();
+		printf("\033[0m");
+			
 		printf("\n\n");
 		printf("Enter the row of queen    %d: ", queen_number);
 
@@ -456,17 +460,20 @@ void game_menu()
 
 			if (status == 0)
 			{
-			ClearBoard();
-			Play();
+				ClearBoard();
+				Play();
 			}
 		}
 		else if (menu2 == 2)
 		{
 			// TIMER CODE 
-			ClearBoard();
-			Play();
-			
-			
+				status = Get_Board_Size();
+
+				if (status == 0)
+				{
+					ClearBoard();
+					Play();
+				}
 		}
 		else if (menu2 == 3)
 			{
