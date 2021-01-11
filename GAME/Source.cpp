@@ -37,6 +37,7 @@ void time(int m, int s)
 			m--;
 		}
 		//system("cls"); 
+	
 		cout << m << ":" << s--;
 		Sleep(1000);
 
@@ -239,12 +240,13 @@ void main()
 			}
 			break;
 		case 4:
+			
 			system("cls");
 			printf("\033[0;96m");
 			printf("\n");
 			printf("\tTHANK YOU FOR PLAYING OUR GAME \t\n\tGOOD BYE.. :D\n\n\n\n");
 			printf("\033[0m");
-
+			exit(0);
 			break;
 		default:
 			printf("\033[0;41m");
@@ -551,7 +553,7 @@ void game_menu()
 	printf("\n\n");
 	printf("\n\n\tPLEASE ENTER YOUR CHOICE: ");
 	scanf_s("%d", &menu2);
-	if (menu2 == 1)
+	if (menu2 == 2)
 	{
 		status = Get_Board_Size();
 
@@ -561,7 +563,7 @@ void game_menu()
 			Play();
 		}
 	}
-	else if (menu2 == 2)
+	else if (menu2 == 1)
 	{
 		// TIMER CODE 
 		status = Get_Board_Size();
