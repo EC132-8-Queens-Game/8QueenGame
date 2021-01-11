@@ -16,7 +16,7 @@
 #define COL_NOT_SAFE 2
 
 
-int hour = 0, minute = 0, second = 0, flag = 0;
+int minute = 0, second = 0, flag = 0;
 // TIMER CODE
 using namespace std;
 void time(int m, int s)
