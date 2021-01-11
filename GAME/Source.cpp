@@ -323,7 +323,9 @@ void Play()
 		else if (status == R_NOT_SAFE)
 		{
 			printf("\nRow [%d] is not safe !!!\n", row);
+			Beep(1245, 1000);
 		}
+	
 		else if (status == COL_NOT_SAFE)
 		{
 			printf("\nColumn [%d] is not safe !!!\n", col);
@@ -374,11 +376,12 @@ void Get_Pos(int* row, int* col, int queen_number)
 			}
 			else if (row_c == 'q' || row_c == 'Q')
 			{
-				// retun to main menu
+				// retun tomenu
 			}
 			else
 			{
 				printf("\nInvalid Selection, Try again...\n");
+				Beep(1245, 1000);
 				is_pos_valid = 0;
 				continue;
 			}
@@ -566,18 +569,15 @@ int Check_Diag(int row, int col)
 {
 	int r, c;
 
-	// check irst diagonal is valid
 	r = row;
 	c = col;
 
-	// determine the starting position of the first diagonal
 	while (r > 0 && c > 0)
 	{
 		r -= 1;
 		c -= 1;
 	}
 
-	// check first diagonal is free or not
 	do
 	{
 		if (queen_board[r][c] == QUEEN)
@@ -592,23 +592,20 @@ int Check_Diag(int row, int col)
 	} while (r < Board_Size && c < Board_Size);
 
 
-	// check second diagonal is valid
 	r = row;
 	c = col;
 
-	// determine the starting position of the second diagonal
 	while (r < (Board_Size - 1) && c > 0)
 	{
 		r += 1;
 		c -= 1;
 	}
 
-	// check second diagonal is free or not
 	do
 	{
 		if (queen_board[r][c] == QUEEN)
 		{
-			Print(r, c);   // show board with unsafe position with different color
+			Print(r, c);
 			return D_NOT_SAFE;
 		}
 
