@@ -183,7 +183,7 @@ void main()
 					puts("  ");
 				else
 					puts("WRONG INPUT");
-
+				Beep(1245, 1000);
 			}
 			break;
 
@@ -203,6 +203,7 @@ void main()
 				printf("\033[41m");
 				printf("\n\n\tWRONG CHOICE PLEASE CHOOSE AGAIN\n\n");
 				printf("\033[0m");
+				Beep(1245, 1000);
 				scanf_s("%d", &e);
 			}
 			if (e == 1)
@@ -231,6 +232,8 @@ void main()
 			printf("\033[0;41m");
 			puts("Try again!!!");
 			printf("\033[0m");
+			Beep(1245, 1000);
+
 		}
 	}
 }
