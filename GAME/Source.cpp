@@ -50,7 +50,7 @@ int timer() {
 		Beep(i, 1000);
 }
 
-// G.V
+// Global Variables
 char queen_board[BOARD_SIZE][BOARD_SIZE];
 int Board_Size;
 
