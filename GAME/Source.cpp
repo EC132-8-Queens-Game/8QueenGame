@@ -25,7 +25,7 @@ void timer() {
 		cout << "\rTime remaining: " << counter << flush;
 		Sleep(1000);
 		counter--;
-		Beep(1245, 1000);
+		Beep(1568, 200);
 	}
 }
 
