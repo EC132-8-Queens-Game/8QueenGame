@@ -452,6 +452,7 @@ void game_menu()
 	else if (menu2 == 2)
 	{
 		// TIMER CODE 
+		
 		ClearBoard();
 		Play();
 
@@ -470,7 +471,7 @@ void game_menu()
 	else
 		printf("\e[0;31m");
 	system("cls");
-	puts("ERROR NUMBER ENTER VALID.. Welcome in mune agine");
+	puts("ERROR NUMBER ENTER VALID.. Welcome in menu again");
 	printf("\033[0m");
 	Beep(1245, 1000);
 }
@@ -618,6 +619,6 @@ int Check_Diag(int row, int col)
 
 	} while (r >= 0 && c < Board_Size);
 
-	// if function reaches here it means that diagonal is safe
+	
 	return 0;
 }
