@@ -9,7 +9,7 @@
 //  Const.
 #define BOARD_SIZE 8
 #define BACK 3
-#define QUEEN 'Q'
+#define QUEEN 'Q' 
 #define POS_SAFE 0
 #define D_NOT_SAFE 3
 #define R_NOT_SAFE 1
@@ -350,6 +350,10 @@ void Get_Pos(int* row, int* col, int queen_number)
 	{
 		printf("\033[0;36m");
 		printf("PRESS C TO CLEAR THE BOARD");
+		printf("\033[0m");
+		printf("\n");
+		printf("\033[0;32m");
+		printf("PRESS S TO SEE THE SOLUTIONS");
 		printf("\033[0m");
 		printf("\n");
 		printf("\n\n");
