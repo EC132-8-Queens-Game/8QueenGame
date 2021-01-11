@@ -214,7 +214,7 @@ int main()
 			printf("\033[4;91m");
 			printf("\tif you sure press 1\n");
 			printf("\033[0m");
-			printf("\tif you're not press 2 and back to mune\n");
+			printf("\tif you're not press 2 to exit\n");
 			scanf_s("%d", &e);
 
 			while (e < 1 || e > 2)
@@ -239,7 +239,12 @@ int main()
 			}
 		break;
 		case 4:
-		
+			system("cls");
+			printf("\033[0;96m");
+			printf("\n");
+			printf("\tTHANK YOU FOR PLAYING OUR GAME \t\n\tGOOD BYE.. :D\n\n\n\n");
+			printf("\033[0m");
+
 		break;
 		default:
 					printf("\033[0;41m");
