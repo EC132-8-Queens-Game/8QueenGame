@@ -25,7 +25,7 @@ void timer() {
 		cout << "\rTime remaining: " << counter << flush;
 		Sleep(1000);
 		counter--;
-		Beep(1568, 200);
+		Beep(1245, 1000);
 	}
 }
 
@@ -451,12 +451,14 @@ void game_menu()
 	}
 	else if (menu2 == 2)
 	{
-		// TIMER CODE 
-		
-		ClearBoard();
-		Play();
+		//TIMER CODE
+		status = Get_Board_Size();
 
-
+		if (status == 0)
+		{
+			ClearBoard();
+			Play();
+		}
 	}
 	else if (menu2 == 3)
 	{
