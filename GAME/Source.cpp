@@ -36,7 +36,7 @@ void time(int m, int s)
 			s = 60;
 			m--;
 		}
-		//system("cls");
+		//system("cls"); 
 		cout << m << ":" << s--;
 		Sleep(1000);
 		
@@ -240,11 +240,11 @@ int main()
 		break;
 		case 4:
 			system("cls");
-					printf("\033[0;36m");
+			printf("\033[0;36m");
 			printf("\n");
 			printf("\tTHANK YOU FOR PLAYING OUR GAME \tGOOD BYE.. :D\n\n\n\n");
-					printf("\033[0m");
-			break;
+			printf("\033[0m");
+		break;
 		default:
 					printf("\033[0;41m");
 			puts("Try again!!!");
@@ -291,7 +291,6 @@ int Check_Pos(int row, int col)
 {
 	int i, j;
 
-	// check row
 	for (i = 0; i < Board_Size; i++)
 	{
 		if (queen_board[row][i] == QUEEN)
@@ -300,7 +299,6 @@ int Check_Pos(int row, int col)
 		}
 	}
 
-	// check column
 	for (i = 0; i < Board_Size; i++)
 	{
 		if (queen_board[i][col] == QUEEN)
@@ -308,11 +306,6 @@ int Check_Pos(int row, int col)
 			return COL_NOT_SAFE;
 		}
 	}
-
-	// check diagonal
-
-	// This function is used to check if the diagonals are safe
-
 	if (Check_Diag(row, col) == D_NOT_SAFE)
 	{
 		return D_NOT_SAFE;
@@ -321,8 +314,80 @@ int Check_Pos(int row, int col)
 	return POS_SAFE;
 }
 
+
+void Get_Pos2(int* row, int* col, int queen_number)
+{
+	char row_c, col_c;
+	int status;
+
+	int is_pos_valid = 0;
+	do
+	{
+		printf("\033[0;35m");
+		printf("Time Remaining: ");
+		timer();
+		printf("\033[0m");
+		printf("\033[0;36m");
+		printf("PRESS C TO CLEAR THE BOARD");
+		printf("\033[0m");
+		printf("\n");
+		;
+
+		printf("\n\n");
+		printf("Enter the row of queen    %d: ", queen_number);
+
+		row_c = getchar();
+
+		while (!isalnum(row_c))
+		{
+			row_c = getchar();
+		}
+
+		if (isalpha(row_c))
+		{
+			if (row_c == 'c' || row_c == 'C')
+			{
+				ClearBoard();
+				Play();
+			}
+			else if (row_c == 's' || row_c == 'S')
+			{
+				ClearBoard();
+				Solve();
+			}
+			else if (row_c == 'q' || row_c == 'Q')
+			{
+				// retun to main menu
+			}
+			else
+			{
+				printf("\nInvalid Selection, Try again...\n");
+				is_pos_valid = 0;
+				continue;
+			}
+
+		}
+		else if (isdigit(row_c))
+		{
+			*row = row_c - 48;
+		}
+
+
+		printf("Enter the column of queen %d: ", queen_number);
+		scanf_s("%d", col);
+
+		if (((*row) >= 1 && (*row) <= Board_Size) && ((*col) >= 1 && (*col) <= Board_Size))
+		{
+			is_pos_valid = 1;
+		}
+		else
+		{
+			printf("\nNOT VALID INPUT. INPUT MUST BE <= %d , TRY ONE MORE TIME...\n", Board_Size);
+		}
+	} while (is_pos_valid != 1);
+}
 // Play function
-void Play()
+void PlayTimer()
 {
 	int row, col;
 	int number_of_queens = 0;
@@ -331,6 +396,41 @@ void Play()
 	do
 	{
 		Print(0,0);
+
+		Get_Pos2(&row, &col, number_of_queens + 1);
+
+		status = Check_Pos(row - 1, col - 1);
+
+		if (status == POS_SAFE)
+		{
+			queen_board[row - 1][col - 1] = QUEEN;
+			number_of_queens++;
+		}
+		else if (status == R_NOT_SAFE)
+		{
+			printf("\nRow [%d] is not safe !!!\n", row);
+		}
+		else if (status == COL_NOT_SAFE)
+		{
+			printf("\nColumn [%d] is not safe !!!\n", col);
+		}
+		else if (status == D_NOT_SAFE)
+		{
+			printf("\nDiagonal [%d]X[%d] is not safe !!!\n", row, col);
+		}
+
+	} while (number_of_queens < Board_Size);
+}
+
+void Play()
+{
+	int row, col;
+	int number_of_queens = 0;
+	int status;
+
+	do
+	{
+		Print(0, 0);
 
 		Get_Pos(&row, &col, number_of_queens + 1);
 
@@ -369,10 +469,7 @@ void Get_Pos(int* row, int* col, int queen_number)
 		printf("PRESS C TO CLEAR THE BOARD");
 				printf("\033[0m");
 		printf("\n");
-		printf("\033[0;35m");
-		printf("Time Remaining: ");
-		timer();
-		printf("\033[0m");
+		;
 			
 		printf("\n\n");
 		printf("Enter the row of queen    %d: ", queen_number);
@@ -428,6 +525,8 @@ void Get_Pos(int* row, int* col, int queen_number)
 	} while (is_pos_valid != 1);
 }
 
+
+
 void game_menu()
 {
 	int status;
@@ -472,7 +571,7 @@ void game_menu()
 				if (status == 0)
 				{
 					ClearBoard();
-					Play();
+					PlayTimer();
 				}
 		}
 		else if (menu2 == 3)
@@ -588,19 +687,15 @@ int Get_Board_Size()
 int Check_Diag(int row, int col)
 {
 	int r, c;
-
-	// check irst diagonal is valid
 	r = row;
 	c = col;
 
-	// determine the starting position of the first diagonal
 	while (r > 0 && c > 0)
 	{
 		r -= 1;
 		c -= 1;
 	}
 
-	// check first diagonal is free or not
 	do
 	{
 		if (queen_board[r][c] == QUEEN)
@@ -614,24 +709,20 @@ int Check_Diag(int row, int col)
 
 	} while (r < Board_Size && c < Board_Size);
 
-
-	// check second diagonal is valid
 	r = row;
 	c = col;
 
-	// determine the starting position of the second diagonal
 	while (r < (Board_Size - 1) && c > 0)
 	{
 		r += 1;
 		c -= 1;
 	}
 
-	// check second diagonal is free or not
 	do
 	{
 		if (queen_board[r][c] == QUEEN)
 		{
-			Print(r, c);   // show board with unsafe position with different color
+			Print(r, c);
 			return D_NOT_SAFE;
 		}
 
@@ -640,6 +731,5 @@ int Check_Diag(int row, int col)
 
 	} while (r >= 0 && c < Board_Size);
 
-	// if function reaches here it means that diagonal is safe
 	return 0;
 }
