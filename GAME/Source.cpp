@@ -30,7 +30,7 @@ void timer() {
 }
 
 
-// G.V
+// Gglobal Variables
 char queen_board[BOARD_SIZE][BOARD_SIZE];
 int Board_Size;
 
@@ -568,7 +568,7 @@ int Get_Board_Size()
 	return 0;
 }
 
-// check diagonals are safe
+// check diagonals
 int Check_Diag(int row, int col)
 {
 	int r, c;
