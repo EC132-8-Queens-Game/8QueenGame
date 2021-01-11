@@ -3,7 +3,8 @@
 #include <conio.h>
 #include <math.h>
 #include <ctype.h>
-#include <time.h>
+#include <iostream>
+#include <windows.h>
 
 //  Const.
 #define BOARD_SIZE 8
@@ -17,65 +18,35 @@
 
 int hour = 0, minute = 0, second = 0, flag = 0;
 // TIMER CODE
-void delay(int z)
+using namespace std;
+void time(int m, int s)
 {
-	clock_t timeDelay = z + clock();
-	while (timeDelay > clock());
-}
-
-int printTimeOnscreen() {
-	system("cls");
-	printf("\t     1.Start  2.Stop  3.Reset    \n");
-	printf("\033[46m");
-	printf("\t              %d:%d:%d              \n", hour, minute, second);
-	printf("\033[0m");
-	printf("\033[0;45m");
-	printf("\t     Time allowed: One Minute    \n");
-	printf("\033[0m");
-	return 0;
-}
-
-int selection() {
-	switch (_getch()) {
-	case 1: flag = 0; break;
-	case 2: flag = 1; break;
-	case 3:
-		hour = minute = second = 0; flag = 1;
-		printTimeOnscreen();
-		break;
-	}
-	return 0;
-}
-
-int counter() {
-	while (!_kbhit() && flag == 0) {
-		if (minute > 59) {
-			minute = 0; ++hour;
+	for (;;)
+	{
+		if (m == 0 && s == 0)
+		{
+			break;
 		}
-		if (second > 59) {
-			second = 0; ++minute;
+		if (s == 0 && m == 0)
+		{
+			m = 60;
 		}
-		printTimeOnscreen();
-		delay(1000); second += 1;
-	}
-	selection();
-	return 0;
-}
-
-int time()
-{
-	while (1) {
-		counter();
+		if (s == 0)
+		{
+			s = 60;
+			m--;
+		}
+		//system("cls");
+		cout << m << ":" << s--;
+		Sleep(1000);
 	}
 }
 
 int timer() {
-	delay(0);
-	printTimeOnscreen();
-	selection();
-	counter();
-	timer();
-	return 0;
+	int m = 1, s = 0;
+	time(m, s);
+	for (int i = 100; ; i = i + 50)
+		Beep(i, 1000);
 }
 
 // G.V
@@ -394,6 +365,8 @@ void Get_Pos(int* row, int* col, int queen_number)
 				printf("\033[0;36m");
 		printf("PRESS C TO CLEAR THE BOARD");
 				printf("\033[0m");
+		printf("\n");
+		timer();
 		printf("\n\n");
 		printf("Enter the row of queen    %d: ", queen_number);
 
@@ -489,7 +462,6 @@ void game_menu()
 		{
 			// TIMER CODE 
 			ClearBoard();
-			//timer();
 			Play();
 			
 			
