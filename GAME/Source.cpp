@@ -183,16 +183,16 @@ int main()
 			break;
 		case 2:
 			system("cls");
-			printf("\t----------------------\n");
-			printf("\033[0m");
-			printf("\033[41m");
+			printf("\n\n");
+					printf("\033[44m");
 			printf("\t        RULE          \n");
-			printf("\033[0m");
-			printf("\033[0m");
-			printf("\t----------------------\n");
+					printf("\033[0m");
+					printf("\033[34m");
+			printf("\t**********************\n");
+					printf("\033[0m");
 
 			printf("\033[0;36m");
-			printf("\n\nThe eight queens’problem is the problem of placing eight queens on an 8×8 chessboard\nsuch  that  none  of  them  attack  one  another  (no  two  are  in  the  same  row,  column,  or diagonal).\n");
+			printf("\n\n\tThe eight queens’problem is the problem of placing eight queens on an 8×8 chessboard\n\tsuch  that  none  of  them  attack  one  another  (no  two  are  in  the  same  row,  column,  or diagonal).\n");
 			printf("\033[0m");
 			
 			while (n != 1)
@@ -235,15 +235,11 @@ int main()
 			if (e == 2)
 			{
 				system("cls");
-				BACK;
+				main();
 			}
 		break;
 		case 4:
-			system("cls");
-			printf("\033[0;36m");
-			printf("\n");
-			printf("\tTHANK YOU FOR PLAYING OUR GAME \tGOOD BYE.. :D\n\n\n\n");
-			printf("\033[0m");
+		
 		break;
 		default:
 					printf("\033[0;41m");
@@ -313,7 +309,6 @@ int Check_Pos(int row, int col)
 
 	return POS_SAFE;
 }
-
 
 void Get_Pos2(int* row, int* col, int queen_number)
 {
@@ -524,8 +519,6 @@ void Get_Pos(int* row, int* col, int queen_number)
 		}
 	} while (is_pos_valid != 1);
 }
-
-
 
 void game_menu()
 {
