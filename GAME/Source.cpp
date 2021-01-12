@@ -193,14 +193,15 @@ void main()
 		case 3:
 			int e;
 			system("cls");
-			printf("\n\n\tAre you sure that you want to see solution?\n");
+			printf("\n\n\tAre you sure that you want to see solution?\n\n");
 			printf("\033[4;91m");
-			printf("\tif you sure press 1\n");
+			printf("\tif you sure press 1\n\n");
 			printf("\033[0m");
-			printf("\tif you're not press 2 and back to mune\n");
+			printf("\tIf you're not\n\tpress 2 and back to menu...\n");
+			printf("\tPress 3 and EXIT...\n");
 			scanf_s("%d", &e);
 
-			while (e < 1 || e > 2)
+			while (e < 1 || e > 3)
 			{
 				system("cls");
 				printf("\033[41m");
@@ -218,7 +219,18 @@ void main()
 			if (e == 2)
 			{
 				system("cls");
-				BACK;
+				main();
+			}
+
+			if (e == 3)
+			{
+				system("cls");
+				printf("\033[0;36m");
+				printf("\n");
+				printf("\tTHANK YOU FOR PLAYING OUR GAME \t\n\tGOOD BYE.. :D\n\n\n\n");
+				printf("\033[0m");
+				Beep(1175, 1000);
+				exit(0);
 			}
 			break;
 		case 4:
