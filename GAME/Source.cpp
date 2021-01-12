@@ -65,10 +65,10 @@ void time2() {
 	for (int i = 100; ; i = i + 50) {
 		Beep(i, 100);
 		printf("\033[1;31m");
-		printf("GAME OVER");
+		printf(" GAME OVER ");
 		printf("\033[0m");
 	}
-		
+	exit(0);
 }
 void timer()
 {
@@ -330,7 +330,6 @@ int CheckPos(int row, int col)
 	{
 		return D_NOT_SAFE;
 	}
-
 	return POS_SAFE;
 }
 
@@ -359,7 +358,7 @@ void Play()
 			printf("\033[0;31m");
 			printf("\nRow [%d] is not safe !!!\n", row);
 			printf("\033[0m");
-			Beep(1245, 1000);
+			Beep(1397, 200);
 		}
 
 		else if (status == COL_NOT_SAFE)
@@ -378,7 +377,6 @@ void Play()
 		}
 
 	} while (number_of_queens < Board_Size);
-	timer();
 }
 
 void GetPos(int* row, int* col, int queen_number)
