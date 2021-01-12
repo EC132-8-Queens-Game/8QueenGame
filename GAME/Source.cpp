@@ -43,7 +43,7 @@ void timer()
 	Sleep(1000);
 	while (counter >= 1);
 	{
-		cout << "\rTime remaining: " << counter ;
+		cout << "\rTime remaining: " << counter;
 		Sleep(1000);
 		counter--;
 		Beep(1245, 1000);
@@ -167,7 +167,7 @@ void main()
 			printf("\033[34m");
 			printf("\t**********************\n");
 			printf("\033[0m");
-			
+
 
 			printf("\033[0;36m");
 			printf("\n\nThe eight queens’problem is the problem of placing eight queens on an 8×8 chessboard\nsuch  that  none  of  them  attack  one  another  (no  two  are  in  the  same  row,  column,  or diagonal).\n");
@@ -332,24 +332,24 @@ void Play()
 		}
 		else if (status == R_NOT_SAFE)
 		{
-					printf("\033[0;31m");
+			printf("\033[0;31m");
 			printf("\nRow [%d] is not safe !!!\n", row);
-					printf("\033[0m");
+			printf("\033[0m");
 			Beep(1245, 1000);
 		}
-	
+
 		else if (status == COL_NOT_SAFE)
 		{
-					printf("\033[0;31m");
+			printf("\033[0;31m");
 			printf("\nColumn [%d] is not safe !!!\n", col);
-					printf("\033[0m");
+			printf("\033[0m");
 			Beep(1397, 200);
 		}
 		else if (status == D_NOT_SAFE)
 		{
-					printf("\033[0;31m");
+			printf("\033[0;31m");
 			printf("\nDiagonal [%d]X[%d] is not safe !!!\n", row, col);
-					printf("\033[0m");
+			printf("\033[0m");
 			Beep(1397, 200);
 		}
 
@@ -364,13 +364,13 @@ void GetPos(int* row, int* col, int queen_number)
 	int is_pos_valid = 0;
 	do
 	{
-				printf("\033[0;36m");
+		printf("\033[0;36m");
 		printf("PRESS C TO CLEAR THE BOARD");
-				printf("\033[0m");
+		printf("\033[0m");
 		printf("\n");
-				printf("\033[0;32m");
+		printf("\033[0;32m");
 		printf("PRESS S TO SEE THE SOLUTIONS");
-				printf("\033[0m");
+		printf("\033[0m");
 		printf("\n");
 		printf("\n\n");
 		printf("Enter the row of queen    %d: ", queen_number);
@@ -400,9 +400,9 @@ void GetPos(int* row, int* col, int queen_number)
 			}
 			else
 			{
-						printf("\033[0;31m");
+				printf("\033[0;31m");
 				printf("\nInvalid Selection, Try again...\n");
-						printf("\033[0m");
+				printf("\033[0m");
 				Beep(1245, 1000);
 				is_pos_valid = 0;
 				continue;
@@ -424,9 +424,9 @@ void GetPos(int* row, int* col, int queen_number)
 		}
 		else
 		{
-					printf("\033[0;31m");
+			printf("\033[0;31m");
 			printf("\nNOT VALID INPUT. INPUT MUST BE <= %d , TRY ONE MORE TIME...\n", Board_Size);
-					printf("\033[0m");
+			printf("\033[0m");
 			Beep(1245, 1000);
 		}
 	} while (is_pos_valid != 1);
@@ -459,6 +459,15 @@ void GameMenu()
 	printf("\n\n");
 	printf("\n\n\tPLEASE ENTER YOUR CHOICE: ");
 	scanf_s("%d", &menu2);
+	while (menu2 < 1 || menu2> 2)
+	{
+		system("cls");
+		printf("\033[41m");
+		printf("\n\n\tWRONG CHOICE..Welcome in menu again\n\n");
+		printf("\033[0m");
+		Beep(1245, 1000);
+		main();
+	}
 	if (menu2 == 1)
 	{
 		status = WIN();
@@ -474,13 +483,14 @@ void GameMenu()
 		//TIMER CODE
 
 		status = WIN();
-		timer();
 		if (status == 0)
 		{
 			ClearBoard();
 			Play();
-	
-			
+		}
+		else
+		{
+			printf("Player WON");
 		}
 	}
 	else if (menu2 == 3)
@@ -494,11 +504,15 @@ void GameMenu()
 		Beep(1245, 1000);
 	}
 	else
-		printf("\e[0;31m");
 	system("cls");
-	puts("ERROR NUMBER ENTER VALID.. Welcome in menu again");
+	printf("\033[1;43m");
+	printf("\t\n\n\n~~~~~~PLAYER WON~~~~~~");
 	printf("\033[0m");
-	Beep(1245, 1000);
+	Beep(523, 500);
+	Beep(587, 500);
+	Beep(659, 500);
+	Beep(698, 500);
+	Beep(784, 500);
 }
 
 void ClearBoard()
@@ -549,7 +563,6 @@ void Solve()
 		{
 			row = 1;
 		}
-
 		for (row; row < Board_Size; row += 2)
 		{
 			s = CheckPos(row, col);
@@ -559,13 +572,9 @@ void Solve()
 				queens_num++;
 				break;
 			}
-
 		}
-
 	}
-
 	Print(0, 0);
-
 }
 
 int WIN()
