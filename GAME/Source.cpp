@@ -52,6 +52,8 @@ void time1(int m, int s)
 			s = 60;
 			m--;
 		}
+		system("cls");
+		printf("if game did't start wait to the end of time\n ");
 		printf("TIME REMAINING: ");
 		cout << m << ":" << s--;
 		printf("\n");
@@ -61,7 +63,7 @@ void time1(int m, int s)
 void time2() {
 	int m = 1, s = 0;
 	time1(m, s);
-	for (int i = 100; ; i = i + 50) {
+	for (int i = 100; ; i = i + 5) {
 		Beep(i, 100);
 		printf("\033[1;31m");
 		printf(" GAME OVER ");
@@ -71,7 +73,7 @@ void time2() {
 }
 void timer()
 {
-	time1(0,0);
+	time1(0, 0);
 	time2();
 }
 
@@ -502,11 +504,11 @@ void GameMenu()
 	}
 	else if (menu2 == 2)
 	{
-		//TIMER MOOD
 		status = WIN();
-		
+
 		if (status == 0)
 		{
+			timer();
 			ClearBoard();
 			Play();
 		}
@@ -522,7 +524,7 @@ void GameMenu()
 		Beep(1245, 1000);
 	}
 	else
-	system("cls");
+		system("cls");
 	printf("\033[1;43m");
 	printf("\t\n\n\n~~~~~~PLAYER WON~~~~~~");
 	printf("\033[0m");
