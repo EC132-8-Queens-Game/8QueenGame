@@ -16,7 +16,6 @@
 #define COL_NOT_SAFE 2
 
 
-
 // Gglobal Variables
 char queen_board[BOARD_SIZE][BOARD_SIZE];
 int Board_Size;
@@ -34,25 +33,51 @@ void ClearBoard();
 //diagonals are safe
 int CheckDiag(int row, int col);
 
-
 // TIMER CODE
+int minute = 0, second = 0, flag = 0;
 using namespace std;
+void time1(int m, int s)
+{
+	for (;;)
+	{
+		if (m == 0 && s == 0)
+		{
+			break;
+		}
+		if (s == 0 && m == 0)
+		{
+			m = 60;
+		}
+		if (s == 0)
+		{
+			s = 60;
+			m--;
+		}
+		printf("TIME REMAINING: ");
+		cout << m << ":" << s--;
+		printf("\n");
+		Sleep(1000);
+	}
+}
+void time2() {
+	int m = 1, s = 0;
+	time1(m, s);
+	for (int i = 100; ; i = i + 50) {
+		Beep(i, 100);
+		printf("\033[1;31m");
+		printf("GAME OVER");
+		printf("\033[0m");
+	}
+		
+}
 void timer()
 {
-	int counter = 60;
-	Sleep(1000);
-	while (counter >= 1);
-	{
-		cout << "\rTime remaining: " << counter;
-		Sleep(1000);
-		counter--;
-		Beep(1245, 1000);
-	}
+	time1(0,0);
+	time2();
 }
 
 //solution
 int n = 8, R[51];
-
 int check(int x, int y)
 {
 	int i;
@@ -70,7 +95,6 @@ int check(int x, int y)
 	else
 		return y;
 };
-
 int soln()
 {
 	int i, f, m, o;
@@ -354,6 +378,7 @@ void Play()
 		}
 
 	} while (number_of_queens < Board_Size);
+	timer();
 }
 
 void GetPos(int* row, int* col, int queen_number)
@@ -480,17 +505,13 @@ void GameMenu()
 	}
 	else if (menu2 == 2)
 	{
-		//TIMER CODE
-
+		//TIMER MOOD
 		status = WIN();
+		
 		if (status == 0)
 		{
 			ClearBoard();
 			Play();
-		}
-		else
-		{
-			printf("Player WON");
 		}
 	}
 	else if (menu2 == 3)
