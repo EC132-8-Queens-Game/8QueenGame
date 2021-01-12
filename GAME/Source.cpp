@@ -15,45 +15,40 @@
 #define R_NOT_SAFE 1
 #define COL_NOT_SAFE 2
 
-// TIMER CODE
-using namespace std;
-void timer() {
-	int counter = 60;
-	Sleep(1000);
-	while (counter >= 1)
-	{
-		cout << "\rTime remaining: " << counter << flush;
-		Sleep(1000);
-		counter--;
-		Beep(1245, 1000);
-		
-	}
-	cout << endl;
-}
 
 
 // Gglobal Variables
 char queen_board[BOARD_SIZE][BOARD_SIZE];
 int Board_Size;
 
-
 void Print();
 void Play();
-
-int Check_Pos(int row, int col);
-
-void Get_Pos(int* row, int* col, int queen_number);
-void game_menu();
-
-//Clear function
-void ClearBoard();
-
+int CheckPos(int row, int col);
+void GetPos(int* row, int* col, int queen_number);
+void GameMenu();
 //Solve function
 void Solve();
-int Get_Board_Size();
-
+int WIN();
+//Clear function
+void ClearBoard();
 //diagonals are safe
-int Check_Diag(int row, int col);
+int CheckDiag(int row, int col);
+
+
+// TIMER CODE
+using namespace std;
+void timer()
+{
+	int counter = 60;
+	Sleep(1000);
+	while (counter >= 1);
+	{
+		cout << "\rTime remaining: " << counter ;
+		Sleep(1000);
+		counter--;
+		Beep(1245, 1000);
+	}
+}
 
 //solution
 int n = 8, R[51];
@@ -161,7 +156,7 @@ void main()
 		switch (btn)
 		{
 		case 1:
-			game_menu();
+			GameMenu();
 			break;
 		case 2:
 			system("cls");
@@ -286,7 +281,7 @@ void Print(int a, int b)
 }
 
 // PUT QUEENS
-int Check_Pos(int row, int col)
+int CheckPos(int row, int col)
 {
 	int i, j;
 
@@ -307,7 +302,7 @@ int Check_Pos(int row, int col)
 			return COL_NOT_SAFE;
 		}
 	}
-	if (Check_Diag(row, col) == D_NOT_SAFE)
+	if (CheckDiag(row, col) == D_NOT_SAFE)
 	{
 		return D_NOT_SAFE;
 	}
@@ -326,9 +321,9 @@ void Play()
 	{
 		Print(0, 0);
 
-		Get_Pos(&row, &col, number_of_queens + 1);
+		GetPos(&row, &col, number_of_queens + 1);
 
-		status = Check_Pos(row - 1, col - 1);
+		status = CheckPos(row - 1, col - 1);
 
 		if (status == POS_SAFE)
 		{
@@ -337,25 +332,31 @@ void Play()
 		}
 		else if (status == R_NOT_SAFE)
 		{
+					printf("\033[0;31m");
 			printf("\nRow [%d] is not safe !!!\n", row);
+					printf("\033[0m");
 			Beep(1245, 1000);
 		}
 	
 		else if (status == COL_NOT_SAFE)
 		{
+					printf("\033[0;31m");
 			printf("\nColumn [%d] is not safe !!!\n", col);
+					printf("\033[0m");
 			Beep(1397, 200);
 		}
 		else if (status == D_NOT_SAFE)
 		{
+					printf("\033[0;31m");
 			printf("\nDiagonal [%d]X[%d] is not safe !!!\n", row, col);
+					printf("\033[0m");
 			Beep(1397, 200);
 		}
 
 	} while (number_of_queens < Board_Size);
 }
 
-void Get_Pos(int* row, int* col, int queen_number)
+void GetPos(int* row, int* col, int queen_number)
 {
 	char row_c, col_c;
 	int status;
@@ -363,13 +364,13 @@ void Get_Pos(int* row, int* col, int queen_number)
 	int is_pos_valid = 0;
 	do
 	{
-		printf("\033[0;36m");
+				printf("\033[0;36m");
 		printf("PRESS C TO CLEAR THE BOARD");
-		printf("\033[0m");
+				printf("\033[0m");
 		printf("\n");
-		printf("\033[0;32m");
+				printf("\033[0;32m");
 		printf("PRESS S TO SEE THE SOLUTIONS");
-		printf("\033[0m");
+				printf("\033[0m");
 		printf("\n");
 		printf("\n\n");
 		printf("Enter the row of queen    %d: ", queen_number);
@@ -395,11 +396,13 @@ void Get_Pos(int* row, int* col, int queen_number)
 			}
 			else if (row_c == 'q' || row_c == 'Q')
 			{
-				// retun tomenu
+				main();
 			}
 			else
 			{
+						printf("\033[0;31m");
 				printf("\nInvalid Selection, Try again...\n");
+						printf("\033[0m");
 				Beep(1245, 1000);
 				is_pos_valid = 0;
 				continue;
@@ -421,14 +424,16 @@ void Get_Pos(int* row, int* col, int queen_number)
 		}
 		else
 		{
+					printf("\033[0;31m");
 			printf("\nNOT VALID INPUT. INPUT MUST BE <= %d , TRY ONE MORE TIME...\n", Board_Size);
+					printf("\033[0m");
 			Beep(1245, 1000);
 		}
 	} while (is_pos_valid != 1);
 
 }
 
-void game_menu()
+void GameMenu()
 {
 	int status;
 	int menu2 = 0;
@@ -456,7 +461,7 @@ void game_menu()
 	scanf_s("%d", &menu2);
 	if (menu2 == 1)
 	{
-		status = Get_Board_Size();
+		status = WIN();
 
 		if (status == 0)
 		{
@@ -467,13 +472,15 @@ void game_menu()
 	else if (menu2 == 2)
 	{
 		//TIMER CODE
-		timer();
-		status = Get_Board_Size();
 
+		status = WIN();
+		timer();
 		if (status == 0)
 		{
 			ClearBoard();
 			Play();
+	
+			
 		}
 	}
 	else if (menu2 == 3)
@@ -545,7 +552,7 @@ void Solve()
 
 		for (row; row < Board_Size; row += 2)
 		{
-			s = Check_Pos(row, col);
+			s = CheckPos(row, col);
 			if (s == POS_SAFE)
 			{
 				queen_board[row][col] = QUEEN;
@@ -561,7 +568,7 @@ void Solve()
 
 }
 
-int Get_Board_Size()
+int WIN()
 {
 	int size;
 	int k = 0;
@@ -588,7 +595,7 @@ int Get_Board_Size()
 }
 
 // check diagonals
-int Check_Diag(int row, int col)
+int CheckDiag(int row, int col)
 {
 	int r, c;
 
